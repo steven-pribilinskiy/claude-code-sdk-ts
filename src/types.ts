@@ -42,6 +42,17 @@ export interface ToolResultBlock {
 
 export type ContentBlock = TextBlock | ToolUseBlock | ToolResultBlock;
 
+// Model usage breakdown information
+export interface ModelUsageInfo {
+  inputTokens: number;
+  outputTokens: number;
+  cacheReadInputTokens: number;
+  cacheCreationInputTokens: number;
+  webSearchRequests?: number;
+  costUSD: number;
+  contextWindow?: number;
+}
+
 // Message types
 export interface UserMessage {
   type: 'user';
@@ -60,6 +71,19 @@ export interface SystemMessage {
   subtype?: string;
   data?: unknown;
   session_id?: string;
+  // Full system init data
+  model?: string;
+  claude_code_version?: string;
+  permissionMode?: string;
+  apiKeySource?: string;
+  output_style?: string;
+  cwd?: string;
+  uuid?: string;
+  tools?: string[];
+  mcp_servers?: Array<{ name: string; status: string }>;
+  slash_commands?: string[];
+  agents?: string[];
+  skills?: string[];
 }
 
 export interface ResultMessage {
@@ -67,6 +91,11 @@ export interface ResultMessage {
   subtype?: string;
   content: string;
   session_id?: string;
+  // Performance metrics
+  duration_ms?: number;
+  duration_api_ms?: number;
+  num_turns?: number;
+  // Token and cost usage
   usage?: {
     input_tokens?: number;
     output_tokens?: number;
@@ -80,6 +109,14 @@ export interface ResultMessage {
     cache_read_cost?: number;
     total_cost?: number;
   };
+  // Per-model usage breakdown
+  modelUsage?: Record<string, ModelUsageInfo>;
+  // Permission denials
+  permission_denials?: string[];
+  // Request tracking
+  uuid?: string;
+  // Total cost in USD
+  total_cost_usd?: number;
 }
 
 export type Message = UserMessage | AssistantMessage | SystemMessage | ResultMessage;
@@ -158,6 +195,19 @@ export interface CLISystemOutput {
   type: 'system';
   subtype?: string;
   session_id?: string;
+  // System init data
+  model?: string;
+  claude_code_version?: string;
+  permissionMode?: string;
+  apiKeySource?: string;
+  output_style?: string;
+  cwd?: string;
+  uuid?: string;
+  tools?: string[];
+  mcp_servers?: Array<{ name: string; status: string }>;
+  slash_commands?: string[];
+  agents?: string[];
+  skills?: string[];
 }
 
 export interface CLIResultOutput {
@@ -165,6 +215,11 @@ export interface CLIResultOutput {
   subtype?: string;
   content?: string;
   session_id?: string;
+  // Performance metrics
+  duration_ms?: number;
+  duration_api_ms?: number;
+  num_turns?: number;
+  // Usage information
   usage?: {
     input_tokens?: number;
     output_tokens?: number;
@@ -174,6 +229,14 @@ export interface CLIResultOutput {
   cost?: {
     total_cost_usd?: number;
   };
+  // Per-model usage breakdown
+  modelUsage?: Record<string, ModelUsageInfo>;
+  // Permission denials
+  permission_denials?: string[];
+  // Request UUID
+  uuid?: string;
+  // Total cost in USD
+  total_cost_usd?: number;
 }
 
 export interface CLIErrorOutput {

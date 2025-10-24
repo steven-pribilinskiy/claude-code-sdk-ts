@@ -1,4 +1,4 @@
-import type { Message, ToolUseBlock, ResultMessage } from './types.js';
+import type { Message, ToolUseBlock, ResultMessage, SystemMessage, ModelUsageInfo } from './types.js';
 import type { Logger } from './logger.js';
 
 /**
@@ -189,6 +189,81 @@ export class ResponseParser {
   }
 
   /**
+   * Get performance metrics (duration, turns, etc)
+   */
+  async getPerformanceMetrics(): Promise<PerformanceMetrics | null> {
+    await this.consume();
+
+    const resultMsg = this.messages.findLast((msg): msg is ResultMessage => msg.type === 'result');
+    if (!resultMsg) return null;
+
+    return {
+      durationMs: resultMsg.duration_ms,
+      durationApiMs: resultMsg.duration_api_ms,
+      numTurns: resultMsg.num_turns
+    };
+  }
+
+  /**
+   * Get permission denials if any
+   */
+  async getPermissionDenials(): Promise<string[]> {
+    await this.consume();
+
+    const resultMsg = this.messages.findLast((msg): msg is ResultMessage => msg.type === 'result');
+    return resultMsg?.permission_denials ?? [];
+  }
+
+  /**
+   * Get system capabilities and metadata
+   */
+  async getSystemCapabilities(): Promise<SystemCapabilities | null> {
+    await this.consume();
+
+    const systemMsg = this.messages.find((msg): msg is SystemMessage => msg.type === 'system');
+    if (!systemMsg) return null;
+
+    return {
+      model: systemMsg.model,
+      claudeCodeVersion: systemMsg.claude_code_version,
+      permissionMode: systemMsg.permissionMode,
+      apiKeySource: systemMsg.apiKeySource,
+      outputStyle: systemMsg.output_style,
+      cwd: systemMsg.cwd,
+      uuid: systemMsg.uuid,
+      tools: systemMsg.tools ?? [],
+      mcpServers: systemMsg.mcp_servers ?? [],
+      slashCommands: systemMsg.slash_commands ?? [],
+      agents: systemMsg.agents ?? [],
+      skills: systemMsg.skills ?? []
+    };
+  }
+
+  /**
+   * Get per-model usage breakdown
+   */
+  async getModelUsageBreakdown(): Promise<Record<string, ModelUsageInfo> | null> {
+    await this.consume();
+
+    const resultMsg = this.messages.findLast((msg): msg is ResultMessage => msg.type === 'result');
+    return resultMsg?.modelUsage ?? null;
+  }
+
+  /**
+   * Get request UUID for tracking
+   */
+  async getRequestUUID(): Promise<string | null> {
+    await this.consume();
+
+    const resultMsg = this.messages.findLast((msg): msg is ResultMessage => msg.type === 'result');
+    if (resultMsg?.uuid) return resultMsg.uuid;
+
+    // Fallback to system message UUID
+    const systemMsg = this.messages.find((msg): msg is SystemMessage => msg.type === 'system');
+    return systemMsg?.uuid ?? null;
+  }
+
+  /**
    * Stream messages with a callback (doesn't consume for other methods)
    */
   async stream(callback: (message: Message) => void | Promise<void>): Promise<void> {
@@ -313,4 +388,31 @@ export interface UsageStats {
   cacheReadTokens: number;
   totalTokens: number;
   totalCost: number;
+}
+
+/**
+ * Performance metrics for a query
+ */
+export interface PerformanceMetrics {
+  durationMs?: number;
+  durationApiMs?: number;
+  numTurns?: number;
+}
+
+/**
+ * System capabilities and metadata
+ */
+export interface SystemCapabilities {
+  model?: string;
+  claudeCodeVersion?: string;
+  permissionMode?: string;
+  apiKeySource?: string;
+  outputStyle?: string;
+  cwd?: string;
+  uuid?: string;
+  tools: string[];
+  mcpServers: Array<{ name: string; status: string }>;
+  slashCommands: string[];
+  agents: string[];
+  skills: string[];
 }
