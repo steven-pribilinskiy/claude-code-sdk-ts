@@ -58,7 +58,15 @@ export { API_KEY_SAFETY_WARNING } from './environment.js';
 
 // Export new fluent API (backward compatible - original query function still available)
 export { claude, QueryBuilder } from './fluent.js';
-export { ResponseParser, type ToolExecution, type UsageStats } from './parser.js';
+export { 
+  ResponseParser, 
+  type ToolExecution, 
+  type UsageStats,
+  type PerformanceMetrics,
+  type SystemCapabilities,
+  type WebSearchUsage,
+  type CacheBreakdown
+} from './parser.js';
 export { 
   Logger, 
   LogLevel, 

@@ -264,6 +264,47 @@ export class ResponseParser {
   }
 
   /**
+   * Get web search usage statistics
+   */
+  async getWebSearchUsage(): Promise<WebSearchUsage | null> {
+    await this.consume();
+
+    const resultMsg = this.messages.findLast((msg): msg is ResultMessage => msg.type === 'result');
+    if (!resultMsg) return null;
+
+    const totalSearches = resultMsg.usage?.server_tool_use?.web_search_requests ?? 0;
+    const byModel: Record<string, number> = {};
+
+    if (resultMsg.modelUsage) {
+      for (const [model, stats] of Object.entries(resultMsg.modelUsage)) {
+        if (stats.webSearchRequests) {
+          byModel[model] = stats.webSearchRequests;
+        }
+      }
+    }
+
+    return {
+      total: totalSearches,
+      byModel
+    };
+  }
+
+  /**
+   * Get cache tier breakdown (ephemeral 5m vs 1h)
+   */
+  async getCacheBreakdown(): Promise<CacheBreakdown | null> {
+    await this.consume();
+
+    const resultMsg = this.messages.findLast((msg): msg is ResultMessage => msg.type === 'result');
+    if (!resultMsg?.usage?.cache_creation) return null;
+
+    return {
+      ephemeral5m: resultMsg.usage.cache_creation.ephemeral_5m_input_tokens ?? 0,
+      ephemeral1h: resultMsg.usage.cache_creation.ephemeral_1h_input_tokens ?? 0
+    };
+  }
+
+  /**
    * Stream messages with a callback (doesn't consume for other methods)
    */
   async stream(callback: (message: Message) => void | Promise<void>): Promise<void> {
@@ -415,4 +456,20 @@ export interface SystemCapabilities {
   slashCommands: string[];
   agents: string[];
   skills: string[];
+}
+
+/**
+ * Web search usage statistics
+ */
+export interface WebSearchUsage {
+  total: number;
+  byModel: Record<string, number>;
+}
+
+/**
+ * Cache tier breakdown (ephemeral 5m vs 1h)
+ */
+export interface CacheBreakdown {
+  ephemeral5m: number;
+  ephemeral1h: number;
 }

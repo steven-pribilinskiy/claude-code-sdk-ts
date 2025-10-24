@@ -95,12 +95,26 @@ export interface ResultMessage {
   duration_ms?: number;
   duration_api_ms?: number;
   num_turns?: number;
+  // Error status
+  is_error?: boolean;
+  // Result text (alternative simplified access to content)
+  result?: string;
   // Token and cost usage
   usage?: {
     input_tokens?: number;
     output_tokens?: number;
     cache_creation_input_tokens?: number;
     cache_read_input_tokens?: number;
+    service_tier?: string;
+    // Server tool usage
+    server_tool_use?: {
+      web_search_requests?: number;
+    };
+    // Cache tier breakdown
+    cache_creation?: {
+      ephemeral_5m_input_tokens?: number;
+      ephemeral_1h_input_tokens?: number;
+    };
   };
   cost?: {
     input_cost?: number;
@@ -219,14 +233,33 @@ export interface CLIResultOutput {
   duration_ms?: number;
   duration_api_ms?: number;
   num_turns?: number;
+  // Error status
+  is_error?: boolean;
+  // Result text
+  result?: string;
   // Usage information
   usage?: {
     input_tokens?: number;
     output_tokens?: number;
     cache_creation_input_tokens?: number;
     cache_read_input_tokens?: number;
+    service_tier?: string;
+    // Server tool usage
+    server_tool_use?: {
+      web_search_requests?: number;
+    };
+    // Cache tier breakdown
+    cache_creation?: {
+      ephemeral_5m_input_tokens?: number;
+      ephemeral_1h_input_tokens?: number;
+    };
   };
   cost?: {
+    input_cost?: number;
+    output_cost?: number;
+    cache_creation_cost?: number;
+    cache_read_cost?: number;
+    total_cost?: number;
     total_cost_usd?: number;
   };
   // Per-model usage breakdown

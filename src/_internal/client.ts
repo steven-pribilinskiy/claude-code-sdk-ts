@@ -87,10 +87,10 @@ export class InternalClient {
           duration_ms: resultMsg.duration_ms,
           duration_api_ms: resultMsg.duration_api_ms,
           num_turns: resultMsg.num_turns,
+          is_error: resultMsg.is_error,
+          result: resultMsg.result,
           usage: resultMsg.usage,
-          cost: resultMsg.cost ? {
-            total_cost: resultMsg.cost.total_cost_usd
-          } : undefined,
+          cost: resultMsg.cost,
           modelUsage: resultMsg.modelUsage,
           permission_denials: resultMsg.permission_denials,
           uuid: resultMsg.uuid,
