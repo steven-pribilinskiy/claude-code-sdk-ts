@@ -20,7 +20,7 @@ claude --help
 
 ### Basic Examples
 
-#### 1. Hello World (`hello-world.js`)
+#### 1. Hello World (`hello-world.ts`)
 The simplest example to get started:
 ```javascript
 import { claude } from '@instantlyeasy/claude-code-sdk-ts';
@@ -29,9 +29,9 @@ const result = await claude()
   .query('Say hello!')
   .asText();
 ```
-**Run:** `node hello-world.js`
+**Run:** `npx tsx hello-world.ts`
 
-#### 2. Error Handling (`error-handling.js`)
+#### 2. Error Handling (`error-handling.ts`)
 Comprehensive error handling patterns including retry logic, graceful degradation, and debugging:
 ```javascript
 // Graceful degradation with fallback models
@@ -46,11 +46,11 @@ async function queryWithFallback(prompt) {
   }
 }
 ```
-**Run:** `node error-handling.js`
+**Run:** `npx tsx error-handling.ts`
 
 ### File and Code Operations
 
-#### 3. File Operations (`file-operations.js`)
+#### 3. File Operations (`file-operations.ts`)
 Safe file manipulation with permission controls:
 ```javascript
 await claude()
@@ -60,9 +60,9 @@ await claude()
   .query('Organize imports in all TypeScript files')
   .asText();
 ```
-**Run:** `node file-operations.js [directory]`
+**Run:** `npx tsx file-operations.ts [directory]`
 
-#### 4. Code Analysis (`code-analysis.js`)
+#### 4. Code Analysis (`code-analysis.ts`)
 Analyze codebases and generate insights:
 ```javascript
 const analysis = await claude()
@@ -71,11 +71,11 @@ const analysis = await claude()
   .query('Analyze the architecture and suggest improvements')
   .asJSON();
 ```
-**Run:** `node code-analysis.js [project-path]`
+**Run:** `npx tsx code-analysis.ts [project-path]`
 
 ### Interactive Applications
 
-#### 5. Interactive Session (`interactive-session.js`)
+#### 5. Interactive Session (`interactive-session.ts`)
 Build conversational CLI applications:
 ```javascript
 const session = claude()
@@ -90,9 +90,9 @@ while (true) {
   console.log(response);
 }
 ```
-**Run:** `node interactive-session.js [role]`
+**Run:** `npx tsx interactive-session.ts [role]`
 
-#### 6. Project Scaffolding (`project-scaffolding.js`)
+#### 6. Project Scaffolding (`project-scaffolding.ts`)
 Generate complete project structures:
 ```javascript
 await claude()
@@ -102,9 +102,9 @@ await claude()
   .query(`Create a ${framework} project with TypeScript, testing, and CI/CD`)
   .stream(handleProgress);
 ```
-**Run:** `node project-scaffolding.js <framework> <project-name>`
+**Run:** `npx tsx project-scaffolding.ts <framework> <project-name>`
 
-#### 7. Web Research (`web-research.js`)
+#### 7. Web Research (`web-research.ts`)
 Research and learning assistant:
 ```javascript
 const research = await claude()
@@ -112,7 +112,7 @@ const research = await claude()
   .query('Compare React, Vue, and Angular for enterprise applications')
   .asText();
 ```
-**Run:** `node web-research.js [topic]`
+**Run:** `npx tsx web-research.ts [topic]`
 
 ### Advanced Features (`new-features/`)
 

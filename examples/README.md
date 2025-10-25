@@ -37,41 +37,41 @@ for await (const message of query('Create a README file', {
 ### Core Examples (Available in Both API Styles)
 
 1. **Hello World** - The simplest example
-   - Fluent: `node fluent-api/hello-world.js`
-   - Previous: `node previous-syntax/hello-world.js`
+   - Fluent: `npx tsx fluent-api/hello-world.ts`
+   - Previous: `npx tsx previous-syntax/hello-world.ts`
 
 2. **File Operations** - File creation, reading, and editing
-   - Fluent: `node fluent-api/file-operations.js`
-   - Previous: `node previous-syntax/file-operations.js`
+   - Fluent: `npx tsx fluent-api/file-operations.ts`
+   - Previous: `npx tsx previous-syntax/file-operations.ts`
 
 3. **Code Analysis** - Analyze code patterns and quality
-   - Fluent: `node fluent-api/code-analysis.js`
-   - Previous: `node previous-syntax/code-analysis.js`
+   - Fluent: `npx tsx fluent-api/code-analysis.ts`
+   - Previous: `npx tsx previous-syntax/code-analysis.ts`
 
 4. **Interactive Session** - Interactive CLI with Claude
-   - Fluent: `node fluent-api/interactive-session.js`
-   - Previous: `node previous-syntax/interactive-session.js`
+   - Fluent: `npx tsx fluent-api/interactive-session.ts`
+   - Previous: `npx tsx previous-syntax/interactive-session.ts`
 
 5. **Web Research** - Research and learning tasks
-   - Fluent: `node fluent-api/web-research.js`
-   - Previous: `node previous-syntax/web-research.js`
+   - Fluent: `npx tsx fluent-api/web-research.ts`
+   - Previous: `npx tsx previous-syntax/web-research.ts`
 
 6. **Project Scaffolding** - Create project structures
-   - Fluent: `node fluent-api/project-scaffolding.js react-app my-project`
-   - Previous: `node previous-syntax/project-scaffolding.js`
+   - Fluent: `npx tsx fluent-api/project-scaffolding.ts react-app my-project`
+   - Previous: `npx tsx previous-syntax/project-scaffolding.ts`
 
 7. **Error Handling** - Comprehensive error patterns
-   - Fluent: `node fluent-api/error-handling.js`
-   - Previous: `node previous-syntax/error-handling.js`
+   - Fluent: `npx tsx fluent-api/error-handling.ts`
+   - Previous: `npx tsx previous-syntax/error-handling.ts`
 
 ### Fluent API Exclusive Examples
 
-8. **[fluent-api-demo.js](./fluent-api-demo.js)** - Comprehensive fluent API showcase
-9. **[response-parsing-demo.js](./response-parsing-demo.js)** - Advanced response handling
-10. **[new-features-demo.js](./new-features-demo.js)** - MCP permissions, roles, and config files
-11. **[enhanced-features-demo.js](./enhanced-features-demo.js)** - New enhanced features (v0.3.0)
-12. **[production-features.js](./production-features.js)** - Production-ready features (AbortSignal, read-only mode, logging)
-13. **[sessions.js](./sessions.js)** - Session management and conversation context
+8. **[fluent-api-demo.ts](./fluent-api-demo.ts)** - Comprehensive fluent API showcase
+9. **[response-parsing-demo.ts](./response-parsing-demo.ts)** - Advanced response handling
+10. **[new-features-demo.ts](./new-features-demo.ts)** - MCP permissions, roles, and config files
+11. **[enhanced-features-demo.ts](./enhanced-features-demo.ts)** - New enhanced features (v0.3.0)
+12. **[production-features.ts](./production-features.ts)** - Production-ready features (AbortSignal, read-only mode, logging)
+13. **[sessions.ts](./sessions.ts)** - Session management and conversation context
 
 ## 🚀 Getting Started
 
@@ -91,10 +91,27 @@ for await (const message of query('Create a README file', {
    ```
 
 4. **Run examples:**
+   
+   **Important:** Examples need the built distribution files. You have two options:
+   
+   **Option A - One-time build:**
    ```bash
-   cd examples
-   node hello-world.js
+   npm run build
+   npm run examples:hello  # or any other example
    ```
+   
+   **Option B - Watch mode (recommended for development):**
+   ```bash
+   # Terminal 1: Auto-rebuild on changes
+   npm run dev
+   
+   # Terminal 2: Run examples
+   npm run examples  # Interactive menu
+   ```
+   
+   **Available scripts:**
+   - `npm run examples` - Interactive menu of all examples
+   - `npm run guide` - SDK interactive guide
 
 ## 💡 Key Concepts
 
@@ -155,13 +172,13 @@ for await (const message of query('Your prompt')) {
 
 ## 🛠️ Advanced Usage
 
-See [error-handling.js](./error-handling.js) for:
+See [error-handling.ts](./fluent-api/error-handling.ts) for:
 - Retry logic implementation
 - Graceful error handling
 - Timeout management
 - Authentication error handling
 
-See [interactive-session.js](./interactive-session.js) for:
+See [interactive-session.ts](./fluent-api/interactive-session.ts) for:
 - Building interactive CLIs
 - Dynamic option configuration
 - User input handling
@@ -229,11 +246,11 @@ const result = await retryExecutor.execute(async () => {
 });
 ```
 
-See [enhanced-features-demo.js](./enhanced-features-demo.js) for a complete demonstration.
+See [enhanced-features-demo.ts](./enhanced-features-demo.ts) for a complete demonstration.
 
 ### 6. **Production Features**
 
-See [production-features.js](./production-features.js) for:
+See [production-features.ts](./production-features.ts) for:
 - Cancellable queries with AbortSignal
 - Read-only mode enforcement with `allowTools()`
 - Advanced logging with nested object support
@@ -241,7 +258,7 @@ See [production-features.js](./production-features.js) for:
 
 ### 7. **Session Management**
 
-See [sessions.js](./sessions.js) for:
+See [sessions.ts](./sessions.ts) for:
 - Session management with `getSessionId()` and `withSessionId()`
 - Maintaining conversation context across multiple queries
 

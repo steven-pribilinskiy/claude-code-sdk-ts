@@ -173,7 +173,7 @@ globalSettings:
 python -c "import json, yaml; print(yaml.dump(json.load(open('config.json'))))" > config.yaml
 
 # Using Node.js
-node -e "console.log(require('js-yaml').dump(require('./config.json')))" > config.yaml
+npx tsx -e "console.log(require('js-yaml').dump(require('./config.json')))" > config.yaml
 ```
 
 ### YAML to JSON
@@ -182,7 +182,7 @@ node -e "console.log(require('js-yaml').dump(require('./config.json')))" > confi
 python -c "import json, yaml; print(json.dumps(yaml.safe_load(open('config.yaml')), indent=2))" > config.json
 
 # Using Node.js
-node -e "console.log(JSON.stringify(require('js-yaml').load(require('fs').readFileSync('./config.yaml', 'utf8')), null, 2))" > config.json
+npx tsx -e "console.log(JSON.stringify(require('js-yaml').load(require('fs').readFileSync('./config.yaml', 'utf8')), null, 2))" > config.json
 ```
 
 ## Schema Reference

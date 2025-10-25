@@ -4,7 +4,7 @@ This directory contains examples demonstrating the advanced features of the Clau
 
 ## Examples
 
-### 1. Token Streaming (`token-streaming.js`)
+### 1. Token Streaming (`token-streaming.ts`)
 
 Demonstrates token streaming patterns and workarounds:
 - SDK token stream analysis (shows current chunked delivery behavior)
@@ -16,10 +16,10 @@ Demonstrates token streaming patterns and workarounds:
 
 **Run:**
 ```bash
-node token-streaming.js
+npx tsx token-streaming.ts
 ```
 
-### 2. Error Handling (`error-handling.js`)
+### 2. Error Handling (`error-handling.ts`)
 
 Shows advanced error handling patterns:
 - Typed error detection
@@ -30,10 +30,10 @@ Shows advanced error handling patterns:
 
 **Run:**
 ```bash
-node error-handling.js
+npx tsx error-handling.ts
 ```
 
-### 3. Retry Strategies (`retry-strategies.js`)
+### 3. Retry Strategies (`retry-strategies.ts`)
 
 Explores various retry patterns:
 - Exponential backoff
@@ -44,10 +44,10 @@ Explores various retry patterns:
 
 **Run:**
 ```bash
-node retry-strategies.js
+npx tsx retry-strategies.ts
 ```
 
-### 4. Interactive Streaming Session (`interactive-streaming.js`)
+### 4. Interactive Streaming Session (`interactive-streaming.ts`)
 
 Interactive CLI chat with visual typewriter streaming:
 - Real-time character-by-character display of responses
@@ -60,7 +60,7 @@ Interactive CLI chat with visual typewriter streaming:
 
 **Run:**
 ```bash
-node interactive-streaming.js
+npx tsx interactive-streaming.ts
 ```
 
 ## Prerequisites
