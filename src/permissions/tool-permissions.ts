@@ -10,6 +10,7 @@ import type {
   PermissionResolution,
 } from '../types/per-call-permissions.js';
 import type { ToolName, ClaudeCodeOptions } from '../types.js';
+import { ALL_TOOLS } from '../constants/tools.js';
 
 export class ToolPermissionManager {
   private globalPermissions: Map<ToolName, ToolPermission>;
@@ -210,11 +211,7 @@ export class ToolPermissionManager {
     context: PermissionContext,
     overrides?: ToolOverrides
   ): Promise<Map<ToolName, PermissionResolution>> {
-    const allTools: ToolName[] = [
-      'Read', 'Write', 'Edit', 'Bash', 'Grep', 'Glob', 'LS',
-      'MultiEdit', 'NotebookRead', 'NotebookEdit', 'WebFetch',
-      'TodoRead', 'TodoWrite', 'WebSearch', 'Task', 'MCPTool'
-    ];
+    const allTools = ALL_TOOLS;
     
     const effectivePermissions = new Map<ToolName, PermissionResolution>();
     

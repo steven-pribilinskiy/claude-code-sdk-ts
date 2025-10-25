@@ -18,7 +18,8 @@ export type ToolName =
   | 'TodoWrite'
   | 'WebSearch'
   | 'Task'
-  | 'MCPTool';
+  | 'MCPTool'
+  | 'SlashCommand';
 
 // Content block types
 export interface TextBlock {

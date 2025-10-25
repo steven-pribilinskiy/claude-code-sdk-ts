@@ -15,6 +15,7 @@ import { Logger } from './logger.js';
 import { PermissionManager } from './permissions/manager.js';
 import { ConfigLoader } from './config/loader.js';
 import { RoleManager } from './roles/manager.js';
+import { ALL_TOOLS } from './constants/tools.js';
 
 /**
  * Fluent API for building Claude Code queries with chainable methods
@@ -62,11 +63,7 @@ export class QueryBuilder {
   allowTools(...tools: ToolName[]): this {
     if (tools.length === 0) {
       // Enforce read-only mode by denying all tools
-      const allTools: ToolName[] = [
-        'Read', 'Write', 'Edit', 'Bash', 'Grep', 'Glob', 'LS',
-        'MultiEdit', 'NotebookRead', 'NotebookEdit', 'WebFetch',
-        'TodoRead', 'TodoWrite', 'WebSearch', 'Task', 'MCPTool'
-      ];
+      const allTools = ALL_TOOLS;
       this.options.deniedTools = allTools;
       this.options.allowedTools = [];
     } else {

@@ -76,6 +76,7 @@ export {
   NullLogger,
   type LogEntry 
 } from './logger.js';
+export { ALL_TOOLS } from './constants/tools.js';
 
 // Export enhanced features (functions and classes only, types come from types.js)
 export {

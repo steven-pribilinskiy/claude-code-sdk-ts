@@ -3,6 +3,7 @@
  */
 
 import type { ToolName } from '../types.js';
+import { ALL_TOOLS } from '../constants/tools.js';
 
 // Re-export ToolPermission type
 export type ToolPermission = 'allow' | 'deny' | 'ask';
@@ -243,9 +244,7 @@ export const PERMISSION_TEMPLATES: Record<string, PermissionTemplate> = {
     name: 'Full Access',
     description: 'Allow all operations',
     permissions: {
-      allow: ['Read', 'Write', 'Edit', 'Bash', 'Grep', 'Glob', 'LS', 'MultiEdit', 
-              'NotebookRead', 'NotebookEdit', 'WebFetch', 'TodoRead', 'TodoWrite', 
-              'WebSearch', 'Task', 'MCPTool']
+      allow: ALL_TOOLS
     }
   },
   
