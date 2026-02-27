@@ -10,9 +10,9 @@ import {
   createOutputBox,
   createStatusBar
 } from './components/index.js';
-import { findExamples, buildSortedExamples, buildListItems } from './lib/index.js';
-import { createProcessRunner } from './lib/process-runner.js';
-import { createUIUpdaters } from './lib/ui-updates.js';
+import { findExamples, buildSortedExamples, buildListItems } from './core/index.js';
+import { createProcessRunner } from './core/process-runner.js';
+import { createUIUpdaters } from './core/ui-updates.js';
 import { setupListHandlers, setupGlobalHandlers, setupFocusHandlers } from './handlers/index.js';
 import { createAppState } from './state.js';
 import type { BlessedList } from './types.js';

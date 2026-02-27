@@ -101,3 +101,11 @@ export {
   withRetry,
   ClaudeRetryExecutor
 } from './enhanced/index.js';
+
+// Export persistent client API (for cache-aware long-running sessions)
+export {
+  PersistentClient,
+  PersistentCLITransport,
+  createMessageGenerator,
+  controllablePromise
+} from './persistent/index.js';

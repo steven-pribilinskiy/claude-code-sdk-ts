@@ -286,7 +286,9 @@ export class SubprocessCLITransport {
         }
         
         const execError = error as { exitCode?: number; signal?: NodeJS.Signals };
-        if (execError.exitCode !== 0) {
+        // Exit code 143 is SIGTERM (128 + 15), which can occur during normal cleanup
+        // Only throw error for non-zero exit codes that aren't SIGTERM
+        if (execError.exitCode !== 0 && execError.exitCode !== 143) {
           throw new ProcessError(
             `Claude Code CLI exited with code ${execError.exitCode}`,
             execError.exitCode,

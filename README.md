@@ -13,6 +13,7 @@ Unofficial TypeScript SDK for [Claude Code](https://github.com/anthropics/claude
 - 🛡️ **Advanced error handling** with retry strategies and typed errors
 - 📊 **Token streaming analysis** with honest documentation about current behavior
 - 🔧 **Production-ready examples** that actually work as advertised
+- ⚡ **NEW: Persistent Client** - Keep processes alive for 5-minute cache benefits!
 
 > **Note**: For the classic async generator API, see [Classic API Documentation](docs/CLASSIC_API.md).
 
@@ -57,6 +58,33 @@ claude login
 The SDK does not handle authentication directly. If you see authentication errors, authenticate using the Claude CLI first.
 
 ## Core Features
+
+### ⚡ Persistent Client (NEW!)
+
+Keep a Claude CLI process alive across multiple queries to benefit from the 5-minute ephemeral cache:
+
+```javascript
+import { PersistentClient } from '@instantlyeasy/claude-code-sdk-ts';
+
+const client = new PersistentClient({ cwd: process.cwd() });
+await client.start();
+
+// First query (cache miss)
+const result1 = await client.query("List TypeScript files");
+
+// Second query to SAME process (cache hit! ⚡ 50-60% faster!)
+const result2 = await client.query("Read package.json");
+
+await client.stop();
+```
+
+**Why use it?**
+- ✅ **50-60% faster** on subsequent queries (cache hits)
+- ✅ Same process, same session
+- ✅ Full state introspection
+- ✅ Perfect for interactive apps or multiple related queries
+
+**📖 [Read the full Persistent Client documentation →](PERSISTENT_CLIENT.md)**
 
 ### 🎯 Fluent API
 

@@ -1,5 +1,5 @@
 import type blessed from 'blessed';
-import { copyToClipboard } from '../../helpers/clipboard.js';
+import { copyToClipboard } from '../utils/clipboard.js';
 import type { AppState, Example } from '../types.js';
 
 export function setupGlobalHandlers(

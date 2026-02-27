@@ -3,30 +3,14 @@ import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import type { SdkDataRecord } from './types.js';
-import {
-  getSdkPage,
-  getGettingStartedPage,
-  getAvailableToolsPage,
-  getModelsPage,
-  getPermissionModesPage,
-  getConfigurationOptionsPage,
-  getResponseParsersPage,
-  getFluentApiMethodsPage,
-  getSessionFeaturesPage,
-  getExamplesPage,
-  getClaudeCodePage,
-  getMcpServersPage,
-  getSubagentsPage,
-  getSkillsPage,
-  getPluginsPage
-} from './pages/index.js';
+import { buildGuideSections } from './pages/index.js';
 import {
   createTitleBar,
   createLeftPanel,
   createRightPanel,
   createLiveQueryBox,
   createHelpBar
-} from './components.js';
+} from './components/index.js';
 import { createAppState } from './state.js';
 import {
   setupNavigationHandlers,
@@ -43,28 +27,8 @@ const packageJsonPath = join(__dirname, '../package.json');
 const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
 const SDK_VERSION = packageJson.version;
 
-function buildSdkData(): SdkDataRecord {
-  return {
-    'SDK': getSdkPage(SDK_VERSION),
-    'Getting Started': getGettingStartedPage(SDK_VERSION),
-    'Available Tools': getAvailableToolsPage(),
-    'Models': getModelsPage(),
-    'Permission Modes': getPermissionModesPage(),
-    'Configuration Options': getConfigurationOptionsPage(),
-    'Response Parsers': getResponseParsersPage(),
-    'Fluent API Methods': getFluentApiMethodsPage(),
-    'Session Features': getSessionFeaturesPage(),
-    'Examples': getExamplesPage(),
-    'CLAUDE CODE': getClaudeCodePage(),
-    'MCP Servers': getMcpServersPage(),
-    'Subagents': getSubagentsPage(),
-    'Skills': getSkillsPage(),
-    'Plugins': getPluginsPage()
-  };
-}
-
-const sdkData = buildSdkData();
-const categories = Object.keys(sdkData);
+const sections = buildGuideSections(SDK_VERSION);
+const categories = Object.keys(sections);
 const parentSections = ['SDK', 'CLAUDE CODE'];
 
 const screen = blessed.screen({
@@ -110,7 +74,7 @@ setupNavigationHandlers(
   screen,
   categories,
   parentSections,
-  sdkData,
+  sections,
   updateCurrentSection
 );
 
@@ -121,9 +85,9 @@ setupGlobalHandlers(screen, helpBar, liveQueryBox, state, runLiveQuery);
 leftPanel.focus();
 leftPanel.select(0);
 
-const data = sdkData[categories[0]];
-rightPanel.setLabel(` {bold}${data.title}{/bold} `);
-rightPanel.setContent(data.content);
+const section = sections[categories[0]];
+rightPanel.setLabel(` {bold}${section.title}{/bold} `);
+rightPanel.setContent(section.content);
 rightPanel.setScrollPerc(0);
 
 screen.render();

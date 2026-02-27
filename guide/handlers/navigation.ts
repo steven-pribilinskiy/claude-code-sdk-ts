@@ -8,18 +8,18 @@ export function setupNavigationHandlers(
   screen: blessed.Widgets.Screen,
   categories: string[],
   parentSections: string[],
-  sdkData: SdkDataRecord,
+  sections: SdkDataRecord,
   updateCurrentSection: (section: string) => void
 ): void {
   const isParentSection = (name: string): boolean => parentSections.includes(name);
 
   const updateRightPanel = (index: number): void => {
     const category = categories[index];
-    const data = sdkData[category];
+    const section = sections[category];
 
     updateCurrentSection(category);
-    rightPanel.setLabel(` {bold}${data.title}{/bold} `);
-    rightPanel.setContent(data.content);
+    rightPanel.setLabel(` {bold}${section.title}{/bold} `);
+    rightPanel.setContent(section.content);
     rightPanel.setScrollPerc(0);
     screen.render();
   };

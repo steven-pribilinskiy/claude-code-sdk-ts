@@ -28,6 +28,7 @@
     "lint": "eslint src --ext .ts",
     "format": "prettier --write \"src/**/*.ts\"",
     "prepare": "npm run build",
+    "find-unused": "knip",
     "examples": "tsx examples/menu",
     "guide": "tsx guide"
   },
@@ -60,6 +61,7 @@
     "blessed": "^0.1.81",
     "cli-highlight": "^2.1.11",
     "eslint": "9.38.0",
+    "knip": "^5.66.3",
     "prettier": "^3.6.2",
     "tsup": "^8.5.0",
     "tsx": "^4.20.6",
